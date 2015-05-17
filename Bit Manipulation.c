@@ -43,3 +43,17 @@ unsigned rightrot(unsigned x, int n)
 	}
 	return x;
 }
+
+/**
+ * count all bits which are 1
+ * faster than ordinary method
+ * the core is (x & x - 1) makes first bit
+ * which is 1 becomes 0 
+ */
+ int bitcount(unsigned x)
+ {
+ 	int b;
+ 	for (b = 0; x != 0; x &= (x - 1))
+ 		b++;
+ 	return b;
+ }
