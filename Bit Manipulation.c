@@ -50,10 +50,54 @@ unsigned rightrot(unsigned x, int n)
  * the core is (x & x - 1) makes first bit
  * which is 1 becomes 0 
  */
- int bitcount(unsigned x)
- {
- 	int b;
- 	for (b = 0; x != 0; x &= (x - 1))
+int bitcount(unsigned x)
+{
+	int b;
+	for (b = 0; x != 0; x &= (x - 1))
  		b++;
  	return b;
- }
+}
+
+// convert n to characters in s 
+#define abs(x) ((x) < 0 ? -(x) : (x))		// pay attention
+void reverse(char s[], int n)
+{
+	int i, j;
+	char temp;
+	for (i = 0, j = n - 1; i < j; i++, j--) {
+		temp = s[i];
+		s[i] = s[j];
+		s[j] = temp;
+	}
+}
+void itoa(int n , char s[])
+{
+	int sign = n;
+	int i = 0;
+	do {
+		s[i++] = abs(n % 10) + '0';			// pay attention
+		n /= 10;
+	} while (n != 0);
+	if (sign < 0)
+		s[i++] = '-';
+	reverse(s, i);
+	s[i] = '\0';
+}
+// convert n to characters in s - base b
+void itob(int n, char s[], int b)
+{
+	int sign = n;
+	int i = 0;
+	do {
+		int digit = abs(n % b);
+		if (digit < 9) 
+			s[i++] = digit + '0';
+		else 
+			s[i++] = digit - 10 + 'a';
+		n /= b;
+	} while (n != 0);
+	if (sign < 0)
+		s[i++] = '-';
+	reverse(s, i);
+	s[i] = '\0';	
+}
